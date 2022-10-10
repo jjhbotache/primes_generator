@@ -1,11 +1,6 @@
 from tkinter import *
 
-#u must run from 2 to the number u were ask to get the primes
-#then multiply the number until the result is bigger than the number u were asked
-#add those numers to a list
-#add the number u multiply to the primes list
-#continue with the next number
-#if it is in the deleted list, skip it, else, do the first process
+
 
 primes = [0,1]
 no_primes= []
