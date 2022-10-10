@@ -1,8 +1,16 @@
 from tkinter import *
 
+""" 
+We create 2 lists, primes and no primes 
+then we go throught al the numbers from 2 to the final number
+if this number is not in the list of no primes, then it is added
+to the primes list and it multiplies until the product gets bigger
+than the final number and each number is added to the no primes
+and it repeat until the final
+"""
 
 
-primes = [0,1]
+primes = [1]
 no_primes= []
 
 def verify():
