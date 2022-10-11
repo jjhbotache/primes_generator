@@ -1,4 +1,6 @@
+
 from tkinter import *
+
 
 """ 
 We create 2 lists, primes and no primes 
@@ -17,9 +19,9 @@ def verify():
     try:
         generate(int(nums_to_generate.get()))
     except ValueError:
-        label.config(text="invalid input", bg="#fa0000")
-
+        label.insert(END,"introduce a valid input")
 def generate(until):
+    primes=[1]
     current_num=2
     while current_num <= until :
         if not(current_num in no_primes):
@@ -30,39 +32,52 @@ def generate(until):
                 else:
                     break;
         current_num +=1
-    label.config(text=primes)
+    label.delete(1.0,END)
+    for x in primes:
+        label.insert(END,(str(x)+"\n"))
+
+    
 
     
 
 #------------------------------------------------------------------------------
 
 
-root = Tk()
-root.geometry("200x200")
+root =Tk()
+root.geometry("230x230")
 root.title("primes generator")
 root.config(bg="#ffffff")
-root.resizable(height = None, width = None) #doesn't works ._.
+root.resizable(0,0)
 #===================================
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 #===================================
 
-frame = Frame(root)
+frame =Frame(root)
 frame.config(width=screen_width,height=screen_height)
-frame.grid(row=1,column=1)
 
+title =Label(frame,text="Introduce until wich number \n you want to generate primes")
 
 nums_to_generate = Entry(frame, borderwidth=2)
-nums_to_generate.grid(row=1,column=1)
 
 btn = Button(frame, text="generate", command=verify)
-btn.grid(row=1,column=2)
 
 
-label=Label(frame, text="---", )
-label.grid(row=2, column=1, columnspan=2)
+
+scroll = Scrollbar(frame)
+label=Text(frame,width=27, yscrollcommand=scroll.set)
+label.insert(END,"---------------------------")
+scroll.config(command=label.yview)
 
 
+
+
+frame.grid(row=4,column=1)
+
+title.grid(row=0,column=0,columnspan=2)
+nums_to_generate.grid(row=1,column=0)
+btn.grid(row=1,column=1)
+label.grid(row=2, column=0,columnspan=2)
 
 
 
