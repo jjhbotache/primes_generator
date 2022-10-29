@@ -19,12 +19,17 @@ no_primes= []
 def verify():
     try:
         generate(int(nums_to_generate.get()))
+        print("i can")
     except ValueError:
         label.delete(1.0,END)
         label.insert(END,"introduce a valid input")
+        print("i can't")
 
 #Here happens the magic of the generation of the primes numbers
 def generate(until):
+    global viterations_text
+    iteration_var = int(iterations_text.get())
+
     primes=[1]
     current_num=2
     while current_num <= until :                            #while the current num is less or equal than the until number...
@@ -36,12 +41,16 @@ def generate(until):
                 else:                                               #if the product of the current number multiply by x is MORE than the until number
                     break;                                              #stop cycle
         current_num +=1                                     #continue with the next number
+        iteration_var+=1
 
     #in here, we clean the entry and write the primes numbers in it
     label.delete(1.0,END)
     for x in primes:
         label.insert(END,(str(x)+"\n"))
 
+    iterations_text.set(str(iteration_var))
+    
+    
     
 
     
@@ -63,8 +72,10 @@ frame =Frame(root)
 frame.config(width=screen_width,height=screen_height)
 
 title =Label(frame,text="Introduce until wich number \n you want to generate primes")
+
+iterations_label = Label(frame,text="iterations:")
 iterations_text = StringVar()
-iterations_text.set("")
+iterations_text.set("0")
 iterations =Label(frame);iterations.config(textvariable=iterations_text)
 
 #An entry that gets the final number
@@ -88,7 +99,8 @@ frame.grid(row=4,column=1)
 title.grid(row=0,column=0,columnspan=2)
 nums_to_generate.grid(row=1,column=0)
 btn.grid(row=1,column=1)
-iterations.grid(row=2,column=0)
+iterations_label.grid(row=2,column=0, sticky="e")
+iterations.grid(row=2,column=1, sticky="w")
 label.grid(row=3, column=0,columnspan=2)
 
 
