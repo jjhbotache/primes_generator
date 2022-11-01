@@ -33,15 +33,16 @@ def generate(until):
     primes=[1]
     current_num=2
     while current_num <= until :                            #while the current num is less or equal than the until number...
+        iteration_var+=1
         if not(current_num in no_primes):                   #if the current number, is not in the no_primes list...    
             primes.append(current_num)                          #first of all, add it to the primes list and...
             for x in range(until+1):                            #for the numbers (called x) from 0 to the until number given
+                iteration_var+=1
                 if not((current_num * x) > until):                  #if the product of the current number multiply by x is less than the until number
                     no_primes.append(current_num*x)                     #append it to the no_primes list
                 else:                                               #if the product of the current number multiply by x is MORE than the until number
                     break;                                              #stop cycle
         current_num +=1                                     #continue with the next number
-        iteration_var+=1
 
     #in here, we clean the entry and write the primes numbers in it
     label.delete(1.0,END)

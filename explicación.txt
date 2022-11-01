@@ -1,0 +1,34 @@
+solo divisible por 1
+solo divisible por el mismo
+si es divisible por otro NO ES PRIMO
+si hay otro numero que lo divida y el resultado no tiene decimales NO ES PRIMO
+
+2 / 1 = 2
+2 / 2 = 1
+
+3 / 1 = 3
+3 / 3 = 1
+3 / 2 = 1.5
+
+4 / 1 = 4
+4 / 4 = 1
+4 / 2	= 2
+4 / 3 = 1.3333
+
+
+12 / 11 = ---
+12 / 10 = ---
+12 / 6  = 2
+12 / 3  = 3
+
+
+
+
+si no esta en la lista de NO primos:
+
+	agregar a la lista de primos
+	
+	multiplicar ese numero, hasta que el resultado sea = o mayor que el 	numero final
+		los productos (de cada operacion los agrego a la lista de no 		primos)
+
+
