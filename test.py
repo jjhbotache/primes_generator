@@ -31,7 +31,13 @@ def verify():
         print("I can't")
 
 def main_generate(until):
-    """Here happens the magic of the generation of the primes numbers
+    """Here happens the magic of the generation of the primes numbers:
+    we create a list of numbers from 2 to the number asked by the user and I call it "probable_primes"
+    then, I go throught that list and add to the primes, the iterative number from the list.
+    After that, I start to take the multipliers and take them out from the from the probable_primes list
+    
+    
+    
 
     Args:
         until (int): the final number to find the primes
@@ -42,25 +48,14 @@ def main_generate(until):
     global primes
     global probable_primes
     
-    max_already_multiplied = 2
-    """ while current_number <= until:
-        iteration_var+=1
-        if not(current_number in no_primes):
-            primes.append(current_number)
-            debug(current_number,(until//current_number)+1)
-            max_already_multiplied = current_number
-        current_number+=1 """
-    
-
-    probable_primes = list(range(2,until+1))
-    for current_number in probable_primes:
-        iteration_var+=1;print("sumo-")  
-        primes.append(current_number)
-        print(f"PP= {probable_primes} {current_number} added to primes")
-        debug(current_number,(until//current_number)+1)
-        max_already_multiplied = current_number
+    probable_primes = list(range(2,until+1))                    #create a list from 2 to the final number
+    for current_number in probable_primes:                      #start to go throught probable_primes list
+        iteration_var+=1;print("add")                          #iteration_var used for count the iterations
+        debug(current_number,(until//current_number)+1)         #function that takes out the multipliers of the current number
+        max_already_multiplied = current_number                 #update the max_already_multiplied for the debug function
         
-    primes=probable_primes   
+    primes=probable_primes                                          #when it finishes, primes are equal to the probable_primes remaining
+    
     
     #in here, we clean the entry and write the primes numbers in it
     label.delete(1.0,END)
@@ -69,20 +64,14 @@ def main_generate(until):
 
     iterations_text.set(str(iteration_var))
     
+    #prints if the result actually are or not the right primes
     if not(set([2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199,211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293,307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397,401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499,503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599,601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691,701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797,809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997]) == set(primes)):print("THEY ARE WRONG")
     else: print("RIGHT")
     
-""" def generator(until):
-    global no_primes
-    probable_primes = list(range(2,until+1))
-    for current_number in probable_primes:
-        print(f"generator: PP= {probable_primes}")
-        debug(current_number,(until//current_number)+1)
-        probable_primes - no_primes """
 
 def debug(cn,max_multiplier):
-    """this function add all multiples to
-    the no_primes global list
+    """this function takes out all multiples from the 
+    probable_primes list
 
     Args:
         cn (int): current number to debug
@@ -94,15 +83,15 @@ def debug(cn,max_multiplier):
     global probable_primes
     
     print (f"for {cn} deleted all the multipliers until {cn}*{max_already_multiplied}-{max_multiplier-1}")
-    for multiplier in range(max_already_multiplied,max_multiplier):
-                iteration_var+=1;print("sumo")
-                no_prime = cn * multiplier
-                no_primes.append(no_prime)
-                try:
-                    probable_primes.remove(no_prime)
-                except:
-                    print(f"couldn't remove {no_prime}")
-                print(f"no prime removed = {no_prime}")
+    
+    
+    for multiplier in range(max_already_multiplied,max_multiplier):         #from the number already multiplied to the maximun until the prodct gets bigger that the final number...                         
+                iteration_var+=1;print("add")                               #again, the iteration var
+                no_prime = cn * multiplier                                  #the multiple of current number is saved into a variable
+                try:                                                        
+                    probable_primes.remove(no_prime)                        #try to remove the no_prime number
+                except:     
+                    print(f"couldn't remove {no_prime}")                    #if it already isn't in there, print it
      
     
 
@@ -162,6 +151,7 @@ label.grid(row=3, column=0,columnspan=2)
 
 iterations_text.set("0")
 iteration_var = int(iterations_text.get())
-# main_generate(1000) #test
+
+main_generate(1000) #test
 root.mainloop()
 #------------------------------------------------------------------------------
