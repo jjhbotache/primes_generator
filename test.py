@@ -18,8 +18,7 @@ and it repeat until the final
 #first, verifies if it's a number, and then runs the generate fuction
 def verify():
     global nums_to_generate
-    print(nums_to_generate.get())
-    try:
+    try:    
         generate(int(nums_to_generate.get()))
         print("I can")
     except ValueError:
@@ -37,17 +36,15 @@ def generate(until):
     no_primes=[]
     current_number = 2
     max_multiplier = 2
-    multiplier = 2
     while current_number <= until:
         iteration_var+=1
         if not(current_number in no_primes):
             primes.append(current_number)
             multiplier = 2
-            while current_number * multiplier <= until:
+            for multiplier in range(max_multiplier,(until//current_number)+1):
                 iteration_var+=1
-                if multiplier > max_multiplier:max_multiplier=multiplier
                 no_primes.append(current_number * multiplier)
-                multiplier+=1
+            max_multiplier = current_number
         current_number+=1
     
     
@@ -59,7 +56,7 @@ def generate(until):
 
     iterations_text.set(str(iteration_var))
     
-    if (until == 1000) and not([2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199,211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293,307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397,401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499,503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599,601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691,701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797,809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997] == primes):print("THEY ARE WRONG")
+    if not([2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199,211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293,307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397,401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499,503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599,601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691,701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797,809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997] == primes):print("THEY ARE WRONG")
     else: print("RIGHT")
     
     
@@ -120,6 +117,6 @@ label.grid(row=3, column=0,columnspan=2)
 
     
 
-#generate(1000)
+generate(1000) #test
 root.mainloop()
 #------------------------------------------------------------------------------
