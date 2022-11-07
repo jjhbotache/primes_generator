@@ -30,26 +30,25 @@ def verify():
 #Here happens the magic of the generation of the primes numbers
 def generate(until):
     global iterations_text
+    iterations_text.set("0")
     iteration_var = int(iterations_text.get())
-
-    primes=[]
-    
-    for x in range(2,until+1):
+            
+    primes=[]            
+    no_primes=[]
+    current_number = 2
+    max_multiplier = 2
+    multiplier = 2
+    while current_number <= until:
         iteration_var+=1
-        primes.append(x)
-    
-    
-    for current_number in primes:
-        iteration_var+=1
-        multiplier = 2
-        while ((current_number*multiplier)<=until):
-            iteration_var+=1
-            try:
-                primes.remove(current_number*multiplier)    
-            except:
-              print(f"can't delete {current_number*multiplier}")
-            multiplier+=1
-    
+        if not(current_number in no_primes):
+            primes.append(current_number)
+            multiplier = 2
+            while current_number * multiplier <= until:
+                iteration_var+=1
+                if multiplier > max_multiplier:max_multiplier=multiplier
+                no_primes.append(current_number * multiplier)
+                multiplier+=1
+        current_number+=1
     
     
     
@@ -121,6 +120,6 @@ label.grid(row=3, column=0,columnspan=2)
 
     
 
-generate(1000)
+#generate(1000)
 root.mainloop()
 #------------------------------------------------------------------------------
