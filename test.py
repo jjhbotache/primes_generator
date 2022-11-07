@@ -14,7 +14,7 @@ and it repeat until the final
 no_primes=[]
 max_already_multiplied = 2
 primes=[]
-
+probable_primes = []
 
 
 
@@ -40,6 +40,7 @@ def main_generate(until):
     global no_primes
     global max_already_multiplied
     global primes
+    global probable_primes
     
     max_already_multiplied = 2
     """ while current_number <= until:
@@ -58,7 +59,7 @@ def main_generate(until):
         print(f"PP= {probable_primes} {current_number} added to primes")
         debug(current_number,(until//current_number)+1)
         max_already_multiplied = current_number
-        probable_primes = set(probable_primes) - set(no_primes)
+        
     primes=probable_primes   
     
     #in here, we clean the entry and write the primes numbers in it
@@ -90,10 +91,18 @@ def debug(cn,max_multiplier):
     global iteration_var
     global no_primes
     global max_already_multiplied
+    global probable_primes
+    
     print (f"for {cn} deleted all the multipliers until {cn}*{max_already_multiplied}-{max_multiplier-1}")
     for multiplier in range(max_already_multiplied,max_multiplier):
                 iteration_var+=1;print("sumo")
-                no_primes.append(cn * multiplier)
+                no_prime = cn * multiplier
+                no_primes.append(no_prime)
+                try:
+                    probable_primes.remove(no_prime)
+                except:
+                    print(f"couldn't remove {no_prime}")
+                print(f"no prime removed = {no_prime}")
      
     
 
