@@ -13,37 +13,54 @@ and it repeat until the final
 
 no_primes=[]
 max_already_multiplied = 2
-no_primes=[]
+primes=[]
 
-#first, verifies if it's a number, and then runs the generate fuction
+
+
+
 def verify():
+    """first, verifies if it's a number, and then runs the generate fuction
+    """
     global nums_to_generate
     try:    
-        generate(int(nums_to_generate.get()))
+        main_generate(int(nums_to_generate.get()))
         print("I can")
     except ValueError:
         label.delete(1.0,END)
         label.insert(END,"introduce a valid input")
         print("I can't")
 
-#Here happens the magic of the generation of the primes numbers
-def generate(until):
+def main_generate(until):
+    """Here happens the magic of the generation of the primes numbers
+
+    Args:
+        until (int): the final number to find the primes
+    """
     global iteration_var
     global no_primes
     global max_already_multiplied
     global primes
     
-    current_number = 2
     max_already_multiplied = 2
-    while current_number <= until:
+    """ while current_number <= until:
         iteration_var+=1
         if not(current_number in no_primes):
             primes.append(current_number)
             debug(current_number,(until//current_number)+1)
             max_already_multiplied = current_number
-        current_number+=1
+        current_number+=1 """
     
-       
+
+    probable_primes = list(range(2,until+1))
+    for current_number in probable_primes:
+        iteration_var+=1;print("sumo-")  
+        primes.append(current_number)
+        print(f"PP= {probable_primes} {current_number} added to primes")
+        debug(current_number,(until//current_number)+1)
+        max_already_multiplied = current_number
+        probable_primes = set(probable_primes) - set(no_primes)
+    primes=probable_primes   
+    
     #in here, we clean the entry and write the primes numbers in it
     label.delete(1.0,END)
     for x in primes:
@@ -51,10 +68,16 @@ def generate(until):
 
     iterations_text.set(str(iteration_var))
     
-    if not([2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199,211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293,307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397,401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499,503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599,601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691,701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797,809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997] == primes):print("THEY ARE WRONG")
+    if not(set([2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199,211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293,307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397,401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499,503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599,601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691,701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797,809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997]) == set(primes)):print("THEY ARE WRONG")
     else: print("RIGHT")
     
-
+""" def generator(until):
+    global no_primes
+    probable_primes = list(range(2,until+1))
+    for current_number in probable_primes:
+        print(f"generator: PP= {probable_primes}")
+        debug(current_number,(until//current_number)+1)
+        probable_primes - no_primes """
 
 def debug(cn,max_multiplier):
     """this function add all multiples to
@@ -67,11 +90,11 @@ def debug(cn,max_multiplier):
     global iteration_var
     global no_primes
     global max_already_multiplied
+    print (f"for {cn} deleted all the multipliers until {cn}*{max_already_multiplied}-{max_multiplier-1}")
     for multiplier in range(max_already_multiplied,max_multiplier):
-                iteration_var+=1
+                iteration_var+=1;print("sumo")
                 no_primes.append(cn * multiplier)
-    
-    
+     
     
 
 #------------------------------------------------------------------------------
@@ -105,10 +128,12 @@ btn = Button(frame, text="generate", command=verify)
 
 
 
-scroll = Scrollbar(frame)
-label=Text(frame,width=27, yscrollcommand=scroll.set)
+label=Text(frame,width=27)
+scroll = Scrollbar(frame,orient="vertical",command=label.yview)
+label.config(yscrollcommand=scroll.set)
+
 label.insert(END,"---------------------------")
-scroll.config(command=label.yview)
+
 
 
 
@@ -128,6 +153,6 @@ label.grid(row=3, column=0,columnspan=2)
 
 iterations_text.set("0")
 iteration_var = int(iterations_text.get())
-generate(1000) #test
+# main_generate(1000) #test
 root.mainloop()
 #------------------------------------------------------------------------------
