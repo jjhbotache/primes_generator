@@ -17,13 +17,15 @@ and it repeat until the final
 
 #first, verifies if it's a number, and then runs the generate fuction
 def verify():
+    global nums_to_generate
+    print(nums_to_generate.get())
     try:
         generate(int(nums_to_generate.get()))
-        print("i can")
+        print("I can")
     except ValueError:
         label.delete(1.0,END)
         label.insert(END,"introduce a valid input")
-        print("i can't")
+        print("I can't")
 
 #Here happens the magic of the generation of the primes numbers
 def generate(until):
@@ -31,30 +33,26 @@ def generate(until):
     iteration_var = int(iterations_text.get())
 
     primes=[]
-    no_primes= []
-    current_num=2
-    already_multiplied = [[],[]]
-    while current_num <= until :                            #while the current num is less or equal than the until number...
+    
+    for x in range(2,until+1):
         iteration_var+=1
-        print(f"checking current number: {current_num} prime? {not(current_num in no_primes)}")
-        if not(current_num in no_primes):                   #if the current number, is not in the no_primes list...    
-            primes.append(current_num)                          #first of all, add it to the primes list and...
-            max_multiplier = 2
-            
-            print(f"{current_num}*{max_multiplier} <= {until} = {((current_num*(max_multiplier))<=until)}")
-            print(f"CN in AM(1) ? = {(current_num in already_multiplied[1])} MM in AM(0) ? = {(max_multiplier in already_multiplied[0])}")
-            print(f"already multiplied? = {((current_num in already_multiplied[1])and(max_multiplier in already_multiplied[0]))}")
-            print(f"CN * MM+1 = {current_num*(max_multiplier)} in primes? {((current_num*(max_multiplier)) in no_primes)}")
-            
-            while ((current_num*max_multiplier)<=until):
-                iteration_var+=1
-                no_primes.append(current_num*max_multiplier)
-                already_multiplied[0].append(current_num)
-                already_multiplied[1].append(max_multiplier)
-                print(f"{current_num*max_multiplier} added as a result of the CN:({current_num}) * MM:({max_multiplier})")
-                max_multiplier+=1
-        current_num +=1                                     #continue with the next number
-
+        primes.append(x)
+    
+    
+    for current_number in primes:
+        iteration_var+=1
+        multiplier = 2
+        while ((current_number*multiplier)<=until):
+            iteration_var+=1
+            try:
+                primes.remove(current_number*multiplier)    
+            except:
+              print(f"can't delete {current_number*multiplier}")
+            multiplier+=1
+    
+    
+    
+    
     #in here, we clean the entry and write the primes numbers in it
     label.delete(1.0,END)
     for x in primes:
@@ -123,6 +121,6 @@ label.grid(row=3, column=0,columnspan=2)
 
     
 
-
+generate(1000)
 root.mainloop()
 #------------------------------------------------------------------------------
