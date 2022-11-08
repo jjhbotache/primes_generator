@@ -44,10 +44,11 @@ def main_generate(until):
     """
     global iteration_var
     global no_primes
-    global max_already_multiplied
+    global max_already_multiplied # =2
     global primes
     global probable_primes
     
+    iteration_var = 0
     probable_primes = list(range(2,until+1))                    #create a list from 2 to the final number
     for current_number in probable_primes:                      #start to go throught probable_primes list
         iteration_var+=1;print("add")                          #iteration_var used for count the iterations
